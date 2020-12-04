@@ -1,0 +1,3 @@
+#!/bin/bash
+
+DOTENV_CONFIG_PATH=~/.env node -r dotenv/config index.js $*

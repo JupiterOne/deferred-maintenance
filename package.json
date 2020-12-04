@@ -1,0 +1,37 @@
+{
+	"name": "deferred-maintenance",
+	"description": "Manage maintenance Findings in JupiterOne for one or more CodeRepos.",
+	"version": "0.0.1",
+	"license": "MIT",
+	"bin": "./bin/deferred-maintenance",
+	"author": {
+		"name": "Erich Smith",
+		"email": "erich.smith@jupiterone.com",
+		"url": "https://github.com/erichs"
+	},
+	"keywords": [
+		"deferred-maintenance",
+		"Erich Smith"
+	],
+	"files": [
+		"index.js",
+		"utils"
+	],
+	"scripts": {
+		"format": "prettier --write \"./**/*.{js,json}\""
+	},
+	"dependencies": {
+		"@jupiterone/jupiterone-client-nodejs": "^0.22.7",
+		"chalk": "^4.1.0",
+		"cli-alerts": "^1.2.2",
+		"cli-handle-error": "^4.4.0",
+		"cli-handle-unhandled": "^1.1.1",
+		"cli-meow-help": "^2.0.2",
+		"cli-welcome": "^2.2.2",
+		"dotenv": "^8.2.0",
+		"meow": "^8.0.0"
+	},
+	"devDependencies": {
+		"prettier": "^2.2.1"
+	}
+}
