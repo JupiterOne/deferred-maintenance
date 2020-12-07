@@ -28,8 +28,8 @@ const flags = {
 
 const commands = {
   help: { desc: `Print help info` },
-  assign: { desc: `Assign a maintenance Finding to one or more CodeRepos` },
-  update: { desc: `Update a maintenance Finding for one or more CodeRepos` }
+  open: { desc: `Open a maintenance Finding for one or more CodeRepos` },
+  close: { desc: `Close a maintenance Finding for one or more CodeRepos` }
 };
 
 const helpText = meowHelp({
