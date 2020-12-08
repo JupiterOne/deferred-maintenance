@@ -117,7 +117,9 @@ async function handleClose(client) {
     message: "Enter a URL linking to maintenance performed (issue, pull request, etc):",
     validate: url => validUrl.isWebUri(url) ? true : 'Must enter a valid web URL.'
   })
-  await client.closeMaintenanceEntities(entities, link);
+  const email = discoverUserEmail();
+
+  await client.closeMaintenanceEntities(entities, link, email);
   console.log("Close OK");
 }
 
