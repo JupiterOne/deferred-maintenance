@@ -1,7 +1,7 @@
 {
 	"name": "deferred-maintenance",
-	"description": "Manage maintenance Findings in JupiterOne for one or more CodeRepos.",
-	"version": "0.0.1",
+	"description": "Manage maintenance Findings in JupiterOne for one or more entities.",
+	"version": "0.1.0",
 	"license": "MIT",
 	"bin": "./bin/deferred-maintenance",
 	"author": {
@@ -11,7 +11,8 @@
 	},
 	"keywords": [
 		"deferred-maintenance",
-		"Erich Smith"
+		"technical debt",
+		"risk"
 	],
 	"files": [
 		"index.js",
@@ -28,9 +29,11 @@
 		"cli-handle-error": "^4.4.0",
 		"cli-handle-unhandled": "^1.1.1",
 		"cli-meow-help": "^2.0.2",
+		"cli-table3": "^0.6.0",
 		"cli-welcome": "^2.2.2",
 		"dotenv": "^8.2.0",
 		"meow": "^8.0.0",
+		"moment": "^2.29.1",
 		"object-hash": "^2.0.3",
 		"prompts": "^2.4.0",
 		"valid-url": "^1.0.9"

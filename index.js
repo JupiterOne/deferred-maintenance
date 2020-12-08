@@ -14,6 +14,9 @@ const { validateEnv } = require("./utils/validation");
 const MaintenanceClient = require("./maintenance");
 const prompts = require("prompts");
 const validUrl = require("valid-url");
+const Table = require("cli-table3");
+const moment = require("moment");
+const fs = require('fs');
 
 const input = cli.input;
 const flags = cli.flags;
@@ -70,13 +73,19 @@ async function handleOpen(client) {
         { title: "30d", description: "30 days from now.", value: Date.now() + (30 * 24 * 60 * 60 * 1000) },
         { title: "60d", description: "60 days from now.", value: Date.now() + (60 * 24 * 60 * 60 * 1000) },
         { title: "90d", description: "90 days from now.", value: Date.now() + (90 * 24 * 60 * 60 * 1000) },
+        { title: "180d", description: "180 days from now.", value: Date.now() + (180 * 24 * 60 * 60 * 1000) },
+        { title: "365d", description: "1 year from now.", value: Date.now() + (365 * 24 * 60 * 60 * 1000) },
       ],
       initial: 0
     }
   ]);
 
+  const email = discoverUserEmail();
+  if (email) {
+    maintenance.createdBy = email;
+  }
   await client.applyDeferredMaintenanceToEntities(entities, maintenance)
-  console.log("assign OK");
+  console.log("Assign OK");
 }
 
 async function handleClose(client) {
@@ -109,7 +118,75 @@ async function handleClose(client) {
     validate: url => validUrl.isWebUri(url) ? true : 'Must enter a valid web URL.'
   })
   await client.closeMaintenanceEntities(entities, link);
-  console.log("close OK");
+  console.log("Close OK");
+}
+
+function discoverUserEmail() {
+  if (process.env.J1_EMAIL) {
+    return process.env.J1_EMAIL;
+  }
+  try {
+    const conf = JSON.parse(fs.readFileSync('/var/j1endpointagent/agent.conf', 'utf8'));
+    return conf.email;
+  } catch (err) {
+    return undefined;
+  }
+}
+
+function discoverCodeRepo() {
+  if (fs.existsSync('.git')) {
+    return process.env.PWD.split('/').pop();
+  }
+}
+
+async function userMaintenanceReport(client) {
+  validateEnv();
+  console.log("Gathering maintenance report...")
+  const codeRepo = discoverCodeRepo();
+  const email = discoverUserEmail();
+  let query;
+  const tableFormatOptions = {
+   chars: { 'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': ''
+      , 'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': ''
+      , 'left': '' , 'left-mid': '' , 'mid': '' , 'mid-mid': ''
+      , 'right': '' , 'right-mid': '' , 'middle': ' ' },
+      style: { 'padding-left': 0, 'padding-right': 0 },
+  };
+  if (codeRepo) {
+    const repoTable = new Table({
+      head: ['maintenanceId', 'due', 'description', 'link'],
+      ...tableFormatOptions
+    });
+    query = `Find deferred_maintenance with closed=false as m that HAS CodeRepo with name = "${codeRepo}" return m.maintenanceId as maintenanceId, m.shortDescription as description, m.dueDate as dueDate, m.webLink as webLink ORDER by m.dueDate ASC`;
+    const repoMaint = await client.gatherEntities(query);
+    if (repoMaint.length) {
+      console.log(`${codeRepo} maintenance needed:`)
+      for (const { maintenanceId, description, dueDate, webLink } of repoMaint) {
+        const dateStr = moment(new Date(dueDate).getTime()).fromNow();
+        repoTable.push([maintenanceId, dateStr, description, webLink]);
+      }
+      console.log(repoTable.toString());
+      console.log('\n');
+    }
+  }
+  if (email) {
+    const emailTable = new Table({
+      head: ['maintenanceId', 'due', 'description', 'link'],
+      ...tableFormatOptions
+    });
+
+    query = `Find UNIQUE deferred_maintenance with closed=false and createdBy = '${email}' as m return m.maintenanceId as maintenanceId, m.shortDescription as description, m.dueDate as dueDate, m.webLink as webLink ORDER BY m.dueDate ASC`;
+    const createdMaint = await client.gatherEntities(query);
+    if (createdMaint.length) {
+      console.log(`${email} created open maintenance items:`)
+      for (const { maintenanceId, description, dueDate, webLink } of createdMaint) {
+        const dateStr = moment(new Date(dueDate).getTime()).fromNow();
+        emailTable.push([maintenanceId, dateStr, description, webLink]);
+      }
+      console.log(emailTable.toString());
+    }
+  }
+  console.log("OK");
 }
 
 (async () => {
@@ -130,8 +207,6 @@ async function handleClose(client) {
      await handleClose(client);
       break;
     default:
-      console.error("unrecognized command");
-      cli.showHelp(1);
-      process.exit(2);
+      await userMaintenanceReport(client);
   }
 })();

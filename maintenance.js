@@ -36,7 +36,7 @@ class MaintenanceClient {
           TYPESTRING, // _type
           'Finding', // _class
           {
-            owner: 'jupiterone',
+            owner: 'deferred',
             displayName: maintenance.shortDescription,
             maintenanceId,
             status: 'open',
@@ -85,6 +85,10 @@ class MaintenanceClient {
         );
       }, this.attemptOptions);
     }
+  }
+
+  getClient() {
+    return this.j1Client;
   }
 
   async gatherEntities(j1ql) {
