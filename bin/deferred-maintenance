@@ -2,4 +2,7 @@
 SCRIPT=$(realpath $0)
 BASEPATH=$(dirname $SCRIPT)
 
-DOTENV_CONFIG_PATH=~/.env node -r dotenv/config $BASEPATH/../src/index.js $*
+(
+  cd $BASEPATH/..
+  DOTENV_CONFIG_PATH=~/.env node -r dotenv/config $BASEPATH/../src/index.js $*
+)
