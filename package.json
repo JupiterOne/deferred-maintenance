@@ -1,7 +1,7 @@
 {
 	"name": "@jupiterone/deferred-maintenance",
 	"description": "Manage maintenance Findings for one or more entities.",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -18,8 +18,8 @@
 		"risk"
 	],
 	"files": [
-		"index.js",
-		"utils"
+		"src",
+		"bin"
 	],
 	"scripts": {
 		"format": "prettier --write \"./**/*.{js,json}\""
