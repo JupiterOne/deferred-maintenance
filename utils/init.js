@@ -6,7 +6,7 @@ module.exports = ({ clear = true }) => {
 	unhandled();
 	welcome({
 		title: `deferred-maintenance`,
-		tagLine: `by Erich Smith`,
+		tagLine: `by ${pkg.author.name}`,
 		description: pkg.description,
 		version: pkg.version,
 		bgColor: '#36BB09',

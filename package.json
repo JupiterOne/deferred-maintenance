@@ -1,13 +1,13 @@
 {
 	"name": "deferred-maintenance",
-	"description": "Manage maintenance Findings in JupiterOne for one or more entities.",
+	"description": "Manage maintenance Findings for one or more entities.",
 	"version": "0.1.0",
 	"license": "MIT",
 	"bin": "./bin/deferred-maintenance",
 	"author": {
-		"name": "Erich Smith",
-		"email": "erich.smith@jupiterone.com",
-		"url": "https://github.com/erichs"
+		"name": "JupiterOne",
+		"email": "developer@jupiterone.com",
+		"url": "https://github.com/jupiterone"
 	},
 	"keywords": [
 		"deferred-maintenance",

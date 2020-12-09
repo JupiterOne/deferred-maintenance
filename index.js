@@ -4,7 +4,7 @@
  * deferred-maintenance
  * Manage maintenance Findings in JupiterOne for one or more CodeRepos.
  *
- * @author Erich Smith <https://github.com/erichs>
+ * @author JupiterOne <https://github.com/jupiterone>
  */
 
 const init = require("./utils/init");
