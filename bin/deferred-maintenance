@@ -1,0 +1,7 @@
+#!/bin/bash
+SCRIPT=$(realpath $0)
+BASEPATH=$(dirname $SCRIPT)
+
+
+
+DOTENV_CONFIG_PATH=~/.env node -r dotenv/config $BASEPATH/../index.js $*
