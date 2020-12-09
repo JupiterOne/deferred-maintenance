@@ -63,7 +63,7 @@ class MaintenanceClient {
     }
   }
 
-  async closeMaintenanceEntities(entities, maintenanceLink, closedBy) {
+  async closeMaintenanceEntities(entities, closeProperties) {
     for (const { entity } of entities) {
       if (entity._type != TYPESTRING) {
         console.warn(`Skipping ${entity._type} entity, as it is not a maintenance finding...`);
@@ -80,9 +80,8 @@ class MaintenanceClient {
           {
             status: 'closed',
             closed: true,
-            maintenanceLink,
             closedOn: Date.now(),
-            closedBy
+            ...closeProperties
           }
         );
       }, this.attemptOptions);

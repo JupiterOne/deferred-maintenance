@@ -111,15 +111,27 @@ async function handleClose(client) {
     console.log("skipping...");
     process.exit(0);
   }
-  const { link } = await prompts({
-    type: "text",
-    name: "link",
-    message: "Enter a URL linking to maintenance performed (issue, pull request, etc):",
-    validate: url => validUrl.isWebUri(url) ? true : 'Must enter a valid web URL.'
-  })
-  const email = discoverUserEmail();
+  const closeProperties = await prompts([
+    {
+      type: "select",
+      name: "closeReason",
+      message: "Why are you closing this maintenance?",
+      choices: [
+        { title: "COMPLETE", description: "Work has been performed.", value: "COMPLETE" },
+        { title: "ERROR", description: "Maintenance was opened in error.", value: "ERROR" },
+        { title: "RISK_ACCEPTED", description: "Business accepts maintenance risk.", value: "RISK_ACCEPTED" },
+      ]
+    },
+    {
+      type: prev => prev != "ERROR" ? "text" : null,
+      name: "maintenanceLink",
+      message: "Enter a URL linking to maintenance performed (issue, pull request, etc):",
+      validate: url => validUrl.isWebUri(url) ? true : 'Must enter a valid web URL.'
+    }
+  ]);
+  closeProperties.closedBy = discoverUserEmail();
 
-  await client.closeMaintenanceEntities(entities, link, email);
+  await client.closeMaintenanceEntities(entities, closeProperties);
   console.log("Close OK");
 }
 
