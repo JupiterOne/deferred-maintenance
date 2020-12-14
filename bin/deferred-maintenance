@@ -1,9 +1,0 @@
-#!/bin/bash
-SCRIPT=$(realpath $0)
-BASEPATH=$(dirname $SCRIPT)
-export OUTERPWD="$PWD"
-
-(
-  cd $BASEPATH/..
-  DOTENV_CONFIG_PATH=~/.env node -r dotenv/config $BASEPATH/../src/index.js $*
-)

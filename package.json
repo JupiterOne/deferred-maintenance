@@ -1,12 +1,14 @@
 {
 	"name": "@jupiterone/deferred-maintenance",
 	"description": "Manage maintenance Findings for one or more entities.",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"license": "MIT",
   "publishConfig": {
     "access": "public"
   },
-	"bin": "./bin/deferred-maintenance",
+	"bin": {
+    "deferred-maintenance": "./src/index.js"
+  },
 	"author": {
 		"name": "JupiterOne",
 		"email": "developer@jupiterone.com",
