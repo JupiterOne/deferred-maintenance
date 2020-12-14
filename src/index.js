@@ -149,7 +149,8 @@ function discoverUserEmail() {
 
 function discoverCodeRepo() {
   if (fs.existsSync('.git')) {
-    return process.env.PWD.split('/').pop();
+    const pwd = process.env.OUTERPWD || process.env.PWD;
+    return pwd.split('/').pop();
   }
 }
 
