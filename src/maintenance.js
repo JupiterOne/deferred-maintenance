@@ -2,6 +2,8 @@ const JupiterOneClient = require("@jupiterone/jupiterone-client-nodejs");
 const { retry } = require("@lifeomic/attempt");
 const prompts = require("prompts");
 const hash = require("object-hash");
+const dotenv = require("dotenv");
+const path = require("path");
 
 const TYPESTRING = "deferred_maintenance";
 
@@ -16,6 +18,9 @@ class MaintenanceClient {
   }
 
   async init() {
+    // load .env file from user's home directory
+    dotenv.config({path: path.join(process.env.HOME, ".env")});
+
     this.j1Client = await new JupiterOneClient({
       account: process.env.J1_ACCOUNT,
       accessToken: process.env.J1_API_TOKEN,

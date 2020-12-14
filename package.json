@@ -6,7 +6,9 @@
   "publishConfig": {
     "access": "public"
   },
-	"bin": "./bin/deferred-maintenance",
+	"bin": {
+    "deferred-maintenance": "./src/index.js"
+  },
 	"author": {
 		"name": "JupiterOne",
 		"email": "developer@jupiterone.com",
