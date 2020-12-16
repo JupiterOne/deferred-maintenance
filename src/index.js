@@ -189,7 +189,7 @@ async function userMaintenanceReport(client) {
       console.log('\n');
     }
   }
-  if (email) {
+  if (email && flags.debug) {
     const emailTable = new Table({
       head: ['maintenanceId', 'due', 'description', 'link'],
       ...tableFormatOptions
