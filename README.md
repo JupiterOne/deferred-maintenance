@@ -46,12 +46,13 @@ Make sure to `chmod 0700 ~/.env`!
 
 Running `deferred-maintenance` with no arguments will generate a report of
 maintenance that has been opened against your current git repository, if you
-happen to be in one that JupiterOne knows about, and also show you any open
-maintenance findings you have created previously. Example output:
+happen to be in one that JupiterOne knows about. If you specify `-d | --debug`,
+it will also show you any open maintenance findings you have created previously.
+Example output:
 
 ```
 ~/repos/jupiterone-client-nodejs master
-❯ deferred-maintenance
+❯ deferred-maintenance --debug
 Gathering maintenance report...
 jupiterone-client-nodejs maintenance needed:
 maintenanceId                            due         description    link

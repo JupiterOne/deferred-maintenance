@@ -16,6 +16,7 @@ const prompts = require("prompts");
 const validUrl = require("valid-url");
 const Table = require("cli-table3");
 const moment = require("moment");
+const CFonts = require("cfonts");
 const fs = require('fs');
 
 const input = cli.input;
@@ -35,10 +36,12 @@ async function handleOpen(client) {
     console.error("invalid query, or no results");
     process.exit(2);
   }
+  console.log("Looks like this will impact:");
+  CFonts.say(`${entities.length}|entities`, { font: "shade", align: "center", colors: ['#f80', '#840'] });
   const { yesno } = await prompts({
     type: "confirm",
     name: "yesno",
-    message: `Looks like this will impact ${entities.length} entities. OK to proceed?`,
+    message: "OK to proceed?",
     initial: true
   });
   if (!yesno) {
@@ -85,7 +88,7 @@ async function handleOpen(client) {
     maintenance.createdBy = email;
   }
   await client.applyDeferredMaintenanceToEntities(entities, maintenance)
-  console.log("Assign OK");
+  console.log("Open OK");
 }
 
 async function handleClose(client) {
@@ -101,10 +104,12 @@ async function handleClose(client) {
     console.error("invalid query, or no results");
     process.exit(2);
   }
+  console.log("Looks like this will impact:");
+  CFonts.say(`${entities.length}|entities`, { font: "shade", align: "center", colors: ['#f80', '#840'] });
   const { yesno } = await prompts({
     type: "confirm",
     name: "yesno",
-    message: `Looks like this will impact ${entities.length} entities. OK to proceed?`,
+    message: "OK to proceed?",
     initial: true
   });
   if (!yesno) {
@@ -184,7 +189,7 @@ async function userMaintenanceReport(client) {
       console.log('\n');
     }
   }
-  if (email) {
+  if (email && flags.debug) {
     const emailTable = new Table({
       head: ['maintenanceId', 'due', 'description', 'link'],
       ...tableFormatOptions
