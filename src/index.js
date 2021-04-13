@@ -16,7 +16,7 @@ const prompts = require("prompts");
 const validUrl = require("valid-url");
 const Table = require("cli-table3");
 const moment = require("moment");
-const CFonts = require("cfonts");
+const tbg = require("terminal-bigtext-generator");
 const fs = require('fs');
 
 const input = cli.input;
@@ -37,7 +37,7 @@ async function handleOpen(client) {
     process.exit(2);
   }
   console.log("Looks like this will impact:");
-  CFonts.say(`${entities.length}|entities`, { font: "shade", align: "center", colors: ['#f80', '#840'] });
+  tbg.print(`${entities.length}  entities`);
   const { yesno } = await prompts({
     type: "confirm",
     name: "yesno",
@@ -105,7 +105,7 @@ async function handleClose(client) {
     process.exit(2);
   }
   console.log("Looks like this will impact:");
-  CFonts.say(`${entities.length}|entities`, { font: "shade", align: "center", colors: ['#f80', '#840'] });
+  tbg.print(`${entities.length}  entities`);
   const { yesno } = await prompts({
     type: "confirm",
     name: "yesno",
