@@ -23,6 +23,10 @@ const flags = {
     type: `boolean`,
     alias: `v`,
     desc: `Print CLI version`
+  },
+  dueDate: {
+    type: `string`,
+    desc: `The due date of the maintenance in the format: MM-DD-YYYY`
   }
 };
 

@@ -21,7 +21,7 @@ const fs = require('fs');
 
 const input = cli.input;
 const flags = cli.flags;
-const { clear, debug } = flags;
+const { clear, debug, dueDate } = flags;
 
 async function handleOpen(client) {
   validateEnv();
@@ -49,7 +49,7 @@ async function handleOpen(client) {
     process.exit(0);
   }
 
-  const maintenance = await prompts([
+  const maintenancePrompts = [
     {
       type: "text",
       name: "shortDescription",
@@ -66,8 +66,14 @@ async function handleOpen(client) {
       name: "webLink",
       message: "Enter a URL weblink (issue, Slack comment, etc):",
       validate: url => validUrl.isWebUri(url) ? true : 'Must enter a valid web URL.'
-    },
-    {
+    }
+  ];
+
+  let parsedDueDate;
+  if (dueDate) {
+    parsedDueDate = Date.parse(dueDate);
+  } else {
+    maintenancePrompts.push({
       type: "select",
       name: "dueDate",
       message: "Pick a realistic due date for this maintenance:",
@@ -80,13 +86,21 @@ async function handleOpen(client) {
         { title: "365d", description: "1 year from now.", value: Date.now() + (365 * 24 * 60 * 60 * 1000) },
       ],
       initial: 0
-    }
-  ]);
+    });
+  }
+  
+  let maintenance = await prompts(maintenancePrompts);
 
   const email = discoverUserEmail();
   if (email) {
     maintenance.createdBy = email;
   }
+  
+  maintenance = parsedDueDate ? {
+    ...maintenance,
+    dueDate: parsedDueDate
+  } : maintenance
+
   await client.applyDeferredMaintenanceToEntities(entities, maintenance)
   console.log("Open OK");
 }
