@@ -1,50 +1,54 @@
 {
-	"name": "@jupiterone/deferred-maintenance",
-	"description": "Manage maintenance Findings for one or more entities.",
-	"version": "0.2.0",
-	"license": "MIT",
-	"publishConfig": {
-		"access": "public"
-	},
-	"bin": {
-		"deferred-maintenance": "./src/index.js"
-	},
-	"author": {
-		"name": "JupiterOne",
-		"email": "developer@jupiterone.com",
-		"url": "https://github.com/jupiterone"
-	},
-	"keywords": [
-		"deferred-maintenance",
-		"technical debt",
-		"risk"
-	],
-	"files": [
-		"src",
-		"bin"
-	],
-	"scripts": {
-		"format": "prettier --write \"./**/*.{js,json}\""
-	},
-	"dependencies": {
-		"@jupiterone/jupiterone-client-nodejs": "^0.22.7",
-		"@lifeomic/attempt": "^3.0.0",
-		"chalk": "^4.1.0",
-		"cli-alerts": "^1.2.2",
-		"cli-handle-error": "^4.4.0",
-		"cli-handle-unhandled": "^1.1.1",
-		"cli-meow-help": "^2.0.2",
-		"cli-table3": "^0.6.0",
-		"cli-welcome": "^2.2.2",
-		"dotenv": "^8.2.0",
-		"meow": "^8.0.0",
-		"moment": "^2.29.1",
-		"object-hash": "^2.0.3",
-		"prompts": "^2.4.0",
-		"terminal-bigtext-generator": "^1.0.1",
-		"valid-url": "^1.0.9"
-	},
-	"devDependencies": {
-		"prettier": "^2.2.1"
-	}
+  "name": "@jupiterone/deferred-maintenance",
+  "version": "0.2.0",
+  "description": "Manage maintenance Findings for one or more entities.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JupiterOne/deferred-maintenance"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "deferred-maintenance": "./src/index.js"
+  },
+  "author": {
+    "name": "JupiterOne",
+    "email": "developer@jupiterone.com",
+    "url": "https://github.com/jupiterone"
+  },
+  "keywords": [
+    "deferred-maintenance",
+    "technical debt",
+    "risk"
+  ],
+  "files": [
+    "src",
+    "bin"
+  ],
+  "scripts": {
+    "format": "prettier --write \"./**/*.{js,json}\""
+  },
+  "dependencies": {
+    "@jupiterone/jupiterone-client-nodejs": "^0.22.7",
+    "@lifeomic/attempt": "^3.0.0",
+    "chalk": "^4.1.0",
+    "cli-alerts": "^1.2.2",
+    "cli-handle-error": "^4.4.0",
+    "cli-handle-unhandled": "^1.1.1",
+    "cli-meow-help": "^2.0.2",
+    "cli-table3": "^0.6.0",
+    "cli-welcome": "^2.2.2",
+    "dotenv": "^8.2.0",
+    "meow": "^8.0.0",
+    "moment": "^2.29.1",
+    "object-hash": "^2.0.3",
+    "prompts": "^2.4.0",
+    "terminal-bigtext-generator": "^1.0.1",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
 }

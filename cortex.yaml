@@ -1,0 +1,12 @@
+openapi: 3.0.1
+info:
+  title: '@jupiterone/deferred-maintenance'
+  description: Manage maintenance Findings for one or more entities.
+  x-cortex-git:
+    github:
+      repository: JupiterOne/deferred-maintenance
+  x-cortex-owners:
+    - type: group
+      name: JupiterOne/security
+  x-cortex-service-groups: tier-4
+  x-cortex-tag: '@jupiterone/deferred-maintenance'
